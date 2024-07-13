@@ -1,5 +1,10 @@
 #include "Application.h"
 
+#include "Pixel/Events/ApplicationEvent.h"
+#include "Pixel/Log.h"
+
+#include <iostream>
+
 namespace Pixel
 {
 	Application::Application()
@@ -14,9 +19,10 @@ namespace Pixel
 
 	void Application::Run()
 	{
-		while (true)
-		{
+		WindowResizeEvent e(1280, 720);
+		PX_TRACE(e);
 
-		}
+		while (true);
+
 	}
 }//namespace Pixel
