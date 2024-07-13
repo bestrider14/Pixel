@@ -1,10 +1,6 @@
 #pragma once
-
-#include <string>
-#include <functional>
-
-#include "Pixel\Core.h"
-#include "spdlog/fmt/ostr.h"
+#include "pxpch.h"
+#include "Pixel/Core.h"
 
 namespace Pixel
 {
@@ -55,7 +51,8 @@ namespace Pixel
 	class EventDispatcher
 	{
 		template<typename T>
-		using EventFn = std::function<bool(T&)>;
+		using EventFn = std::function<bool(const T&)>;
+
 	public:
 		EventDispatcher(Event& p_Event)
 			: m_Event(p_Event) {}
@@ -65,11 +62,12 @@ namespace Pixel
 		{
 			if (m_Event.GetEventType() == T::GetStaticType())
 			{
-				m_Event.m_Handled = func(*(T*)&m_Event);
+				m_Event.m_Handled = func(static_cast<const T&>(m_Event));
 				return true;
 			}
 			return false;
 		}
+
 	private:
 		Event& m_Event;
 	};

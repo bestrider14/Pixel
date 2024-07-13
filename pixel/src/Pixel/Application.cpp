@@ -1,3 +1,4 @@
+#include "pxpch.h"
 #include "Application.h"
 
 #include "Pixel/Events/ApplicationEvent.h"
@@ -9,7 +10,7 @@ namespace Pixel
 {
 	Application::Application()
 	{
-
+		m_Window = std::unique_ptr<Window>(Window::Create());
 	}
 
 	Application::~Application()
@@ -19,10 +20,9 @@ namespace Pixel
 
 	void Application::Run()
 	{
-		WindowResizeEvent e(1280, 720);
-		PX_TRACE(e);
-
-		while (true);
-
+		while (m_Running)
+		{
+			m_Window->OnUpdate();
+		}
 	}
 }//namespace Pixel

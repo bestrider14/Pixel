@@ -34,6 +34,11 @@
     <ClInclude Include="src\Pixel\Log.h">
       <Filter>Pixel</Filter>
     </ClInclude>
+    <ClInclude Include="src\pxpch.h" />
+    <ClInclude Include="src\Pixel\Window.h">
+      <Filter>Pixel</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Pixel\Application.cpp">
@@ -42,5 +47,7 @@
     <ClCompile Include="src\Pixel\Log.cpp">
       <Filter>Pixel</Filter>
     </ClCompile>
+    <ClCompile Include="src\pxpch.cpp" />
+    <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
   </ItemGroup>
 </Project>
