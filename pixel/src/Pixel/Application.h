@@ -2,6 +2,7 @@
 
 #include "Core.h"
 #include "Events/Event.h"
+#include "Pixel/Events/ApplicationEvent.h"
 #include "Window.h"
 
 namespace Pixel 
@@ -14,7 +15,10 @@ namespace Pixel
 
 		void Run();
 
+		void OnEvent(Event& p_E);
 	private:
+		bool OnWindowClose(WindowCloseEvent& p_E);
+
 		std::unique_ptr<Window> m_Window;
 		bool m_Running = true;
 	};

@@ -44,14 +44,13 @@ namespace Pixel
 			return GetCategoryFlags() & category;
 		}
 
-	protected:
-		bool m_Handled = false;
+		bool Handled = false;
 	};
 
 	class EventDispatcher
 	{
 		template<typename T>
-		using EventFn = std::function<bool(const T&)>;
+		using EventFn = std::function<bool(T&)>;
 
 	public:
 		EventDispatcher(Event& p_Event)
@@ -62,7 +61,7 @@ namespace Pixel
 		{
 			if (m_Event.GetEventType() == T::GetStaticType())
 			{
-				m_Event.m_Handled = func(static_cast<const T&>(m_Event));
+				m_Event.Handled = func(*(T*)&m_Event);
 				return true;
 			}
 			return false;
