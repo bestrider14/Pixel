@@ -38,6 +38,22 @@ namespace Pixel
 		int m_RepeatCount;
 	};
 
+	class PIXEL_API KeyTypedEvent : public KeyEvent
+	{
+	public:
+		KeyTypedEvent(int p_KeyCode)
+			: KeyEvent(p_KeyCode) {}
+
+		std::string ToString() const override
+		{
+			std::stringstream ss;
+			ss << "KeyTypedEvent: " << m_KeyCode;
+			return ss.str();
+		}
+
+		EVENT_CLASS_TYPE(KeyTyped)
+	};
+
 	class PIXEL_API KeyReleasedEvent : public KeyEvent
 	{
 	public:

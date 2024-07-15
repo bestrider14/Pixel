@@ -5,6 +5,8 @@
 #include "Pixel/Events/KeyEvent.h"
 #include "Pixel/Events/MouseEvent.h"
 
+#include "Glad/glad.h"
+
 namespace Pixel
 {
 	static bool s_GLFWInitialized = false;
@@ -48,6 +50,8 @@ namespace Pixel
 
 		m_Window = glfwCreateWindow((int)p_props.Width, (int)p_props.Height, m_Data.Title.c_str(), nullptr, nullptr);
 		glfwMakeContextCurrent(m_Window);
+		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+		PX_CORE_ASSERT(status, "Could not initialize Glad!");
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVSync(true);
 
@@ -96,6 +100,14 @@ namespace Pixel
 					break;
 				}
 			}
+		});
+
+		glfwSetCharCallback(m_Window, [](GLFWwindow* p_Window,unsigned int p_Keycode)
+		{
+			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(p_Window);
+
+			KeyTypedEvent event(p_Keycode);
+			data.EventCallback(event);
 		});
 
 		glfwSetMouseButtonCallback(m_Window, [](GLFWwindow* p_Window, int p_Button, int p_Action, int p_Mods)

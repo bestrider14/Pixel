@@ -1,11 +1,30 @@
 #include <Pixel.h>
 
+class EmampleLayer : public Pixel::Layer
+{
+public:
+	EmampleLayer()
+		: Layer("Example") 
+	{}
+
+	void OnUpdate() override
+	{
+		PX_INFO("ExampleLayer::Update");
+	}
+
+	void OnEvent(Pixel::Event& p_Event) override
+	{
+		PX_TRACE("{0}", p_Event);
+	}
+};
+
 class Sandbox : public Pixel::Application
 {
 public:
 	Sandbox()
 	{
-
+		PushLayer(new EmampleLayer());
+		PushOverlay(new Pixel::ImGuiLayer());
 	}
 
 	~Sandbox()

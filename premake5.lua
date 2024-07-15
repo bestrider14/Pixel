@@ -14,8 +14,12 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 -- Include directories relative to root folder (solution directory)
 IncludeDir = {}
 IncludeDir["GLFW"] = "Pixel/vendor/GLFW/include"
+IncludeDir["Glad"] = "Pixel/vendor/GLAD/include"
+IncludeDir["ImGui"] = "Pixel/vendor/imgui"
 
 include "Pixel/vendor/GLFW"
+include "Pixel/vendor/Glad"
+include "Pixel/vendor/imgui"
 
 project "Pixel"
     location "Pixel"
@@ -38,12 +42,16 @@ project "Pixel"
     {
         "%{prj.name}/src",
         "%{prj.name}/vendor/spdlog/include",
-        "%{IncludeDir.GLFW}"
+        "%{IncludeDir.GLFW}",
+		"%{IncludeDir.Glad}",
+		"%{IncludeDir.ImGui}"
     }
 
     links
     {
         "GLFW",
+		"Glad",
+		"ImGui",
         "opengl32.lib"
     }
 
@@ -55,7 +63,8 @@ project "Pixel"
         defines
         {
             "PX_PLATFORM_WINDOWS",
-            "PX_BUILD_DLL"
+            "PX_BUILD_DLL",
+			"GLFW_INCLUDE_NONE"
         }
 
         postbuildcommands
@@ -65,14 +74,17 @@ project "Pixel"
 
     filter "configurations:Debug"
         defines "PX_DEBUG"
+		buildoptions "/MDd"
         symbols "On"
 
     filter "configurations:Release"
         defines "PX_RELEASE"
+		buildoptions "/MD"
         optimize "On"
 
     filter "configurations:Dist"
         defines "PX_DIST"
+		buildoptions "/MD"
         optimize "On"
 
 project "SandBox"
@@ -112,12 +124,15 @@ project "SandBox"
 
     filter "configurations:Debug"
         defines "PX_DEBUG"
+		buildoptions "/MDd"
         symbols "On"
 
     filter "configurations:Release"
         defines "PX_RELEASE"
+		buildoptions "/MD"
         optimize "On"
 
     filter "configurations:Dist"
         defines "PX_DIST"
+		buildoptions "/MD"
         optimize "On"

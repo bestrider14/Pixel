@@ -7,6 +7,12 @@
     <Filter Include="Pixel\Events">
       <UniqueIdentifier>{2B62FEA8-17C5-8D4D-C04A-C603AC8C59D0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Platform">
+      <UniqueIdentifier>{2AC788B4-1694-E3BF-3FAD-D1672BD9184E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows">
+      <UniqueIdentifier>{64FBD71A-50F4-F66C-7926-DCF1657ED678}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Pixel.h" />
@@ -31,23 +37,43 @@
     <ClInclude Include="src\Pixel\Events\MouseEvent.h">
       <Filter>Pixel\Events</Filter>
     </ClInclude>
+    <ClInclude Include="src\Pixel\Layer.h">
+      <Filter>Pixel</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Pixel\LayerStack.h">
+      <Filter>Pixel</Filter>
+    </ClInclude>
     <ClInclude Include="src\Pixel\Log.h">
       <Filter>Pixel</Filter>
     </ClInclude>
-    <ClInclude Include="src\pxpch.h" />
     <ClInclude Include="src\Pixel\Window.h">
       <Filter>Pixel</Filter>
     </ClInclude>
-    <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
+    <ClInclude Include="src\Platform\Windows\WindowsWindow.h">
+      <Filter>Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="src\pxpch.h" />
+    <ClInclude Include="src\Pixel\ImGui\ImGuiLayer.h" />
+    <ClInclude Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Pixel\Application.cpp">
       <Filter>Pixel</Filter>
     </ClCompile>
+    <ClCompile Include="src\Pixel\Layer.cpp">
+      <Filter>Pixel</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Pixel\LayerStack.cpp">
+      <Filter>Pixel</Filter>
+    </ClCompile>
     <ClCompile Include="src\Pixel\Log.cpp">
       <Filter>Pixel</Filter>
     </ClCompile>
+    <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp">
+      <Filter>Platform\Windows</Filter>
+    </ClCompile>
     <ClCompile Include="src\pxpch.cpp" />
-    <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
+    <ClCompile Include="src\Pixel\ImGui\ImGuiLayer.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.cpp" />
   </ItemGroup>
 </Project>
