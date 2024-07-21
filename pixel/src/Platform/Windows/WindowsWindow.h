@@ -22,6 +22,8 @@ namespace Pixel
 		virtual void SetVSync(bool enabled) override;
 		virtual bool IsVSync() const override;
 
+		inline virtual void* GetNativeWindow() const { return m_Window; }
+
 	private:
 		virtual void Init(const WindowProps& p_props);
 		virtual void Shutdown();

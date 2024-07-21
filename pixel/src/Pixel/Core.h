@@ -10,6 +10,11 @@
 	#error Pixel only supports Windows !
 #endif // PX_PLATFORM_WINDOWS
 
+#ifdef PX_DEBUG
+	#define PX_ENABLE_ASSERTS
+#endif // PX_DEBUG
+
+
 #ifdef PX_ENABLE_ASSERTS
 	#define PX_ASSERT(x, ...) { if(!(x)) { PX_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak();}}
 	#define PX_CORE_ASSERT(x, ...) { if(!(x)) { PX_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak();}}

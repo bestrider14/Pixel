@@ -17,14 +17,18 @@ IncludeDir["GLFW"] = "Pixel/vendor/GLFW/include"
 IncludeDir["Glad"] = "Pixel/vendor/GLAD/include"
 IncludeDir["ImGui"] = "Pixel/vendor/imgui"
 
-include "Pixel/vendor/GLFW"
-include "Pixel/vendor/Glad"
-include "Pixel/vendor/imgui"
+group "Dependencies"
+	include "Pixel/vendor/GLFW"
+	include "Pixel/vendor/Glad"
+	include "Pixel/vendor/imgui"
+
+group ""
 
 project "Pixel"
     location "Pixel"
     kind "SharedLib"
     language "C++"
+	staticruntime "off"
 
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -57,7 +61,6 @@ project "Pixel"
 
     filter "system:windows"
         cppdialect "C++20"
-        staticruntime "On"
         systemversion "latest"
 
         defines
@@ -69,28 +72,29 @@ project "Pixel"
 
         postbuildcommands
         {
-            ("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/SandBox")
+			("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/SandBox/\"")
         }
 
     filter "configurations:Debug"
         defines "PX_DEBUG"
-		buildoptions "/MDd"
+		runtime "Debug"
         symbols "On"
 
     filter "configurations:Release"
         defines "PX_RELEASE"
-		buildoptions "/MD"
+		runtime "Release"
         optimize "On"
 
     filter "configurations:Dist"
         defines "PX_DIST"
-		buildoptions "/MD"
+		runtime "Release"
         optimize "On"
 
 project "SandBox"
     location "SandBox"
     kind "ConsoleApp"
     language "C++"
+	staticruntime "off"
 
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -114,7 +118,6 @@ project "SandBox"
 
     filter "system:windows"
         cppdialect "C++20"
-        staticruntime "On"
         systemversion "latest"
 
         defines
@@ -124,15 +127,15 @@ project "SandBox"
 
     filter "configurations:Debug"
         defines "PX_DEBUG"
-		buildoptions "/MDd"
+		runtime "Debug"
         symbols "On"
 
     filter "configurations:Release"
         defines "PX_RELEASE"
-		buildoptions "/MD"
+		runtime "Release"
         optimize "On"
 
     filter "configurations:Dist"
         defines "PX_DIST"
-		buildoptions "/MD"
+		runtime "Release"
         optimize "On"

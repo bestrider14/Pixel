@@ -83,8 +83,7 @@
       <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\GLAD\include;vendor\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <AdditionalOptions>/MDd %(AdditionalOptions)</AdditionalOptions>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
@@ -95,7 +94,7 @@
       <ImportLibrary>..\bin\Debug-windows-x86_64\Pixel\Pixel.lib</ImportLibrary>
     </Link>
     <PostBuildEvent>
-      <Command>IF EXIST ..\bin\Debug-windows-x86_64\Pixel\Pixel.dll\ (xcopy /Q /E /Y /I ..\bin\Debug-windows-x86_64\Pixel\Pixel.dll ..\bin\Debug-windows-x86_64\SandBox &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Debug-windows-x86_64\Pixel\Pixel.dll ..\bin\Debug-windows-x86_64\SandBox &gt; nul)</Command>
+      <Command>IF EXIST ..\bin\Debug-windows-x86_64\Pixel\Pixel.dll\ (xcopy /Q /E /Y /I ..\bin\Debug-windows-x86_64\Pixel\Pixel.dll "..\bin\Debug-windows-x86_64\SandBox\" &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Debug-windows-x86_64\Pixel\Pixel.dll "..\bin\Debug-windows-x86_64\SandBox\" &gt; nul)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -110,8 +109,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <MinimalRebuild>false</MinimalRebuild>
       <StringPooling>true</StringPooling>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <AdditionalOptions>/MD %(AdditionalOptions)</AdditionalOptions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
@@ -123,7 +121,7 @@
       <ImportLibrary>..\bin\Release-windows-x86_64\Pixel\Pixel.lib</ImportLibrary>
     </Link>
     <PostBuildEvent>
-      <Command>IF EXIST ..\bin\Release-windows-x86_64\Pixel\Pixel.dll\ (xcopy /Q /E /Y /I ..\bin\Release-windows-x86_64\Pixel\Pixel.dll ..\bin\Release-windows-x86_64\SandBox &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Release-windows-x86_64\Pixel\Pixel.dll ..\bin\Release-windows-x86_64\SandBox &gt; nul)</Command>
+      <Command>IF EXIST ..\bin\Release-windows-x86_64\Pixel\Pixel.dll\ (xcopy /Q /E /Y /I ..\bin\Release-windows-x86_64\Pixel\Pixel.dll "..\bin\Release-windows-x86_64\SandBox\" &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Release-windows-x86_64\Pixel\Pixel.dll "..\bin\Release-windows-x86_64\SandBox\" &gt; nul)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">
@@ -138,8 +136,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <MinimalRebuild>false</MinimalRebuild>
       <StringPooling>true</StringPooling>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <AdditionalOptions>/MD %(AdditionalOptions)</AdditionalOptions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
@@ -151,11 +148,10 @@
       <ImportLibrary>..\bin\Dist-windows-x86_64\Pixel\Pixel.lib</ImportLibrary>
     </Link>
     <PostBuildEvent>
-      <Command>IF EXIST ..\bin\Dist-windows-x86_64\Pixel\Pixel.dll\ (xcopy /Q /E /Y /I ..\bin\Dist-windows-x86_64\Pixel\Pixel.dll ..\bin\Dist-windows-x86_64\SandBox &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Dist-windows-x86_64\Pixel\Pixel.dll ..\bin\Dist-windows-x86_64\SandBox &gt; nul)</Command>
+      <Command>IF EXIST ..\bin\Dist-windows-x86_64\Pixel\Pixel.dll\ (xcopy /Q /E /Y /I ..\bin\Dist-windows-x86_64\Pixel\Pixel.dll "..\bin\Dist-windows-x86_64\SandBox\" &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Dist-windows-x86_64\Pixel\Pixel.dll "..\bin\Dist-windows-x86_64\SandBox\" &gt; nul)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\Pixel\ImGui\ImGuiLayer.h" />
     <ClInclude Include="src\Pixel.h" />
     <ClInclude Include="src\Pixel\Application.h" />
     <ClInclude Include="src\Pixel\Core.h" />
@@ -164,21 +160,27 @@
     <ClInclude Include="src\Pixel\Events\Event.h" />
     <ClInclude Include="src\Pixel\Events\KeyEvent.h" />
     <ClInclude Include="src\Pixel\Events\MouseEvent.h" />
+    <ClInclude Include="src\Pixel\ImGui\ImGuiLayer.h" />
+    <ClInclude Include="src\Pixel\Input.h" />
+    <ClInclude Include="src\Pixel\KeyCode.h" />
     <ClInclude Include="src\Pixel\Layer.h" />
     <ClInclude Include="src\Pixel\LayerStack.h" />
     <ClInclude Include="src\Pixel\Log.h" />
+    <ClInclude Include="src\Pixel\MouseButtonCode.h" />
     <ClInclude Include="src\Pixel\Window.h" />
     <ClInclude Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.h" />
+    <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\pxpch.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Pixel\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\Pixel\Application.cpp" />
+    <ClCompile Include="src\Pixel\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\Pixel\Layer.cpp" />
     <ClCompile Include="src\Pixel\LayerStack.cpp" />
     <ClCompile Include="src\Pixel\Log.cpp" />
     <ClCompile Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.cpp" />
+    <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\pxpch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>

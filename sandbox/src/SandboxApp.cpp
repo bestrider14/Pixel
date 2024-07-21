@@ -9,12 +9,13 @@ public:
 
 	void OnUpdate() override
 	{
-		PX_INFO("ExampleLayer::Update");
+		if (Pixel::Input::IsKeyPressed(PX_KEY_UP))
+			PX_TRACE("Key up is pressed!");
 	}
 
 	void OnEvent(Pixel::Event& p_Event) override
 	{
-		PX_TRACE("{0}", p_Event);
+		//PX_TRACE("{0}", p_Event);
 	}
 };
 

@@ -4,6 +4,11 @@
 #include "Pixel/Application.h"
 #include "Pixel/Layer.h"
 #include "Pixel/Log.h"
+
+#include "Pixel/Input.h"
+#include "Pixel/KeyCode.h"
+#include "Pixel/MouseButtonCode.h"
+
 #include "Pixel/ImGui/ImGuiLayer.h"
 
 // ------- Entry Point -------
