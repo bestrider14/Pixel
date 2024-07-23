@@ -6,9 +6,11 @@
 #include "Pixel/Events/Event.h"
 #include "Pixel/Events/ApplicationEvent.h"
 
+#include "Pixel/ImGui/ImGuiLayer.h"
+
 namespace Pixel 
 {
-	class PIXEL_API Application
+	class  Application
 	{
 	public:
 		Application();
@@ -29,6 +31,7 @@ namespace Pixel
 		bool OnWindowClose(WindowCloseEvent& p_E);
 
 		std::unique_ptr<Window> m_Window;
+		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
 		LayerStack m_LayerStack;
 

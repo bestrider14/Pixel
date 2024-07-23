@@ -4,7 +4,7 @@
 
 namespace Pixel
 {
-	class PIXEL_API MouseMovedEvent : public Event
+	class  MouseMovedEvent : public Event
 	{
 	public:
 		MouseMovedEvent(float p_X, float p_Y)
@@ -27,7 +27,7 @@ namespace Pixel
 		float m_MouseX, m_MouseY;
 	};
 
-	class PIXEL_API MouseScrolledEvent : public Event
+	class  MouseScrolledEvent : public Event
 	{
 	public:
 		MouseScrolledEvent(float p_XOffset, float p_YOffset)
@@ -50,7 +50,7 @@ namespace Pixel
 		float m_XOffset, m_YOffset;
 	};
 
-	class PIXEL_API MouseButtonEvent : public Event
+	class  MouseButtonEvent : public Event
 	{
 	public:
 		inline int GetMouseButton() const { return m_Button; }
@@ -64,7 +64,7 @@ namespace Pixel
 		int m_Button;
 	};
 
-	class PIXEL_API MouseButtonPressedEvent : public MouseButtonEvent
+	class  MouseButtonPressedEvent : public MouseButtonEvent
 	{
 	public:
 		MouseButtonPressedEvent(int p_Button)
@@ -80,7 +80,7 @@ namespace Pixel
 		EVENT_CLASS_TYPE(MouseButtonPressed)
 	};
 
-	class PIXEL_API MouseButtonReleasedEvent : public MouseButtonEvent
+	class  MouseButtonReleasedEvent : public MouseButtonEvent
 	{
 	public:
 		MouseButtonReleasedEvent(int p_Button)

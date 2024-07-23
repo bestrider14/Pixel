@@ -5,7 +5,7 @@
 
 namespace Pixel
 {
-	class PIXEL_API Layer
+	class Layer
 	{
 	public:
 		Layer(const std::string& p_debugName = "Layer");
@@ -14,6 +14,7 @@ namespace Pixel
 		virtual void OnAttach() {}
 		virtual void OnDetach() {}
 		virtual void OnUpdate() {}
+		virtual void OnImGuiRender() {}
 		virtual void OnEvent(Event& p_Event) {}
 
 		inline const std::string& GetName() const { return m_DebugName; }

@@ -4,7 +4,7 @@
 
 namespace Pixel 
 {
-	class PIXEL_API KeyEvent : public Event
+	class  KeyEvent : public Event
 	{
 	public:
 		inline int GetKeyCode() { return m_KeyCode; }
@@ -18,7 +18,7 @@ namespace Pixel
 		int m_KeyCode;
 	};
 
-	class PIXEL_API KeyPressedEvent : public KeyEvent
+	class  KeyPressedEvent : public KeyEvent
 	{
 	public:
 		KeyPressedEvent(int p_KeyCode, int p_RepeatCount)
@@ -38,7 +38,7 @@ namespace Pixel
 		int m_RepeatCount;
 	};
 
-	class PIXEL_API KeyTypedEvent : public KeyEvent
+	class  KeyTypedEvent : public KeyEvent
 	{
 	public:
 		KeyTypedEvent(int p_KeyCode)
@@ -54,7 +54,7 @@ namespace Pixel
 		EVENT_CLASS_TYPE(KeyTyped)
 	};
 
-	class PIXEL_API KeyReleasedEvent : public KeyEvent
+	class  KeyReleasedEvent : public KeyEvent
 	{
 	public:
 		KeyReleasedEvent(int p_KeyCode)

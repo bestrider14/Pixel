@@ -4,7 +4,7 @@
 
 namespace Pixel
 {
-	class PIXEL_API WindowResizeEvent : public Event
+	class  WindowResizeEvent : public Event
 	{
 	public:
 		WindowResizeEvent(unsigned int p_Width, unsigned int p_Height)
@@ -27,7 +27,7 @@ namespace Pixel
 		unsigned int m_Width, m_Height;
 	};
 
-	class PIXEL_API WindowCloseEvent : public Event
+	class  WindowCloseEvent : public Event
 	{
 	public:
 		WindowCloseEvent() {}
@@ -36,7 +36,7 @@ namespace Pixel
 		EVENT_CLASS_CATEGORY(EventCategoryApplication)
 	};
 
-	class PIXEL_API AppTickEvent : public Event
+	class  AppTickEvent : public Event
 	{
 	public:
 		AppTickEvent() {}
@@ -45,7 +45,7 @@ namespace Pixel
 		EVENT_CLASS_CATEGORY(EventCategoryApplication)
 	};
 
-	class PIXEL_API AppUpdateEvent : public Event
+	class  AppUpdateEvent : public Event
 	{
 	public:
 		AppUpdateEvent() {}
@@ -54,7 +54,7 @@ namespace Pixel
 		EVENT_CLASS_CATEGORY(EventCategoryApplication)
 	};
 
-	class PIXEL_API AppRenderEvent : public Event
+	class  AppRenderEvent : public Event
 	{
 	public:
 		AppRenderEvent() {}

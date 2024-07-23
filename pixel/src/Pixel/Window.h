@@ -21,7 +21,7 @@ namespace Pixel
 	};
 
 	// Interface representing a desktop system base Window
-	class PIXEL_API Window
+	class  Window
 	{
 	public:
 		using EventCallbackFn = std::function<void(Event&)>;

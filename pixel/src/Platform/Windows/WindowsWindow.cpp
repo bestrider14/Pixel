@@ -5,7 +5,7 @@
 #include "Pixel/Events/KeyEvent.h"
 #include "Pixel/Events/MouseEvent.h"
 
-#include "Glad/glad.h"
+#include "Platform/OpenGL/OpenGLContext.h"
 
 namespace Pixel
 {
@@ -36,7 +36,7 @@ namespace Pixel
 		m_Data.Title = p_props.Title;
 		m_Data.Width = p_props.Width;
 		m_Data.Height = p_props.Height;
-
+		
 		PX_CORE_INFO("Creating window {0} ({1}, {2})", p_props.Title, p_props.Width, p_props.Height);
 
 		if (!s_GLFWInitialized)
@@ -49,9 +49,10 @@ namespace Pixel
 		}
 
 		m_Window = glfwCreateWindow((int)p_props.Width, (int)p_props.Height, m_Data.Title.c_str(), nullptr, nullptr);
-		glfwMakeContextCurrent(m_Window);
-		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-		PX_CORE_ASSERT(status, "Could not initialize Glad!");
+
+		m_Context = new OpenGLContext(m_Window);
+		m_Context->Init();
+
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVSync(true);
 
@@ -156,7 +157,7 @@ namespace Pixel
 	void WindowsWindow::OnUpdate()
 	{
 		glfwPollEvents();
-		glfwSwapBuffers(m_Window);
+		m_Context->SwapBuffers();
 	}
 
 	void WindowsWindow::SetVSync(bool enabled)

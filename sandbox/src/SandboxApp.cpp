@@ -25,7 +25,6 @@ public:
 	Sandbox()
 	{
 		PushLayer(new EmampleLayer());
-		PushOverlay(new Pixel::ImGuiLayer());
 	}
 
 	~Sandbox()

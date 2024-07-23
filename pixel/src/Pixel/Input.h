@@ -4,7 +4,7 @@
 
 namespace Pixel
 {
-	class PIXEL_API Input
+	class  Input
 	{
 	public:
 		inline static bool IsKeyPressed(int p_Keycode) { return s_Instance->IsKeyPressedImpl(p_Keycode); }

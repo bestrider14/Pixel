@@ -16,6 +16,7 @@ IncludeDir = {}
 IncludeDir["GLFW"] = "Pixel/vendor/GLFW/include"
 IncludeDir["Glad"] = "Pixel/vendor/GLAD/include"
 IncludeDir["ImGui"] = "Pixel/vendor/imgui"
+IncludeDir["glm"] = "Pixel/vendor/glm"
 
 group "Dependencies"
 	include "Pixel/vendor/GLFW"
@@ -26,9 +27,10 @@ group ""
 
 project "Pixel"
     location "Pixel"
-    kind "SharedLib"
+    kind "StaticLib"
     language "C++"
-	staticruntime "off"
+    cppdialect "C++20"
+	staticruntime "on"
 
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -39,7 +41,14 @@ project "Pixel"
     files
     {
         "%{prj.name}/src/**.h",
-        "%{prj.name}/src/**.cpp"
+        "%{prj.name}/src/**.cpp",
+        "%{prj.name}/vendor/glm/glm/**.hpp",
+        "%{prj.name}/vendor/glm/glm/**.inl"
+    }
+
+    defines
+    {
+        "_CRT_SECURE_NO_WARNINGS"
     }
 
     includedirs
@@ -48,7 +57,8 @@ project "Pixel"
         "%{prj.name}/vendor/spdlog/include",
         "%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
-		"%{IncludeDir.ImGui}"
+		"%{IncludeDir.ImGui}",
+        "%{IncludeDir.glm}"
     }
 
     links
@@ -60,7 +70,6 @@ project "Pixel"
     }
 
     filter "system:windows"
-        cppdialect "C++20"
         systemversion "latest"
 
         defines
@@ -70,31 +79,27 @@ project "Pixel"
 			"GLFW_INCLUDE_NONE"
         }
 
-        postbuildcommands
-        {
-			("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/SandBox/\"")
-        }
-
     filter "configurations:Debug"
         defines "PX_DEBUG"
 		runtime "Debug"
-        symbols "On"
+        symbols "on"
 
     filter "configurations:Release"
         defines "PX_RELEASE"
 		runtime "Release"
-        optimize "On"
+        optimize "on"
 
     filter "configurations:Dist"
         defines "PX_DIST"
 		runtime "Release"
-        optimize "On"
+        optimize "on"
 
 project "SandBox"
     location "SandBox"
     kind "ConsoleApp"
     language "C++"
-	staticruntime "off"
+    cppdialect "C++20"
+	staticruntime "on"
 
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -108,7 +113,8 @@ project "SandBox"
     includedirs
     {
         "Pixel/vendor/spdlog/include",
-        "Pixel/src"
+        "Pixel/src",
+        "%{IncludeDir.glm}"
     }
 
     links
@@ -117,7 +123,6 @@ project "SandBox"
     }
 
     filter "system:windows"
-        cppdialect "C++20"
         systemversion "latest"
 
         defines
@@ -128,14 +133,14 @@ project "SandBox"
     filter "configurations:Debug"
         defines "PX_DEBUG"
 		runtime "Debug"
-        symbols "On"
+        symbols "on"
 
     filter "configurations:Release"
         defines "PX_RELEASE"
 		runtime "Release"
-        optimize "On"
+        optimize "on"
 
     filter "configurations:Dist"
         defines "PX_DIST"
 		runtime "Release"
-        optimize "On"
+        optimize "on"
