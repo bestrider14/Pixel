@@ -143,6 +143,8 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Pixel\Renderer\Renderer.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\Pixel.h" />
     <ClInclude Include="src\Pixel\Application.h" />
     <ClInclude Include="src\Pixel\Core.h" />
@@ -158,6 +160,7 @@
     <ClInclude Include="src\Pixel\LayerStack.h" />
     <ClInclude Include="src\Pixel\Log.h" />
     <ClInclude Include="src\Pixel\MouseButtonCode.h" />
+    <ClInclude Include="src\Pixel\Renderer\Buffer.h" />
     <ClInclude Include="src\Pixel\Renderer\GraphicsContext.h" />
     <ClInclude Include="src\Pixel\Renderer\Shader.h" />
     <ClInclude Include="src\Pixel\Window.h" />
@@ -583,12 +586,15 @@
     <ClInclude Include="vendor\glm\glm\vector_relational.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Pixel\Renderer\Renderer.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="src\Pixel\Application.cpp" />
     <ClCompile Include="src\Pixel\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\Pixel\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\Pixel\Layer.cpp" />
     <ClCompile Include="src\Pixel\LayerStack.cpp" />
     <ClCompile Include="src\Pixel\Log.cpp" />
+    <ClCompile Include="src\Pixel\Renderer\Buffer.cpp" />
     <ClCompile Include="src\Pixel\Renderer\Shader.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />

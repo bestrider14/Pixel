@@ -9,6 +9,7 @@
 #include "Pixel/ImGui/ImGuiLayer.h"
 
 #include "Pixel/Renderer/Shader.h"
+#include "Pixel/Renderer/Buffer.h"
 
 namespace Pixel 
 {
@@ -37,8 +38,10 @@ namespace Pixel
 		bool m_Running = true;
 		LayerStack m_LayerStack;
 
-		unsigned int m_VertexArray, m_VertexBuffer, m_IndexBuffer;
+		unsigned int m_VertexArray;
 		std::unique_ptr<Shader> m_Shader;
+		std::unique_ptr<VertexBuffer> m_VertexBuffer;
+		std::unique_ptr<IndexBuffer> m_IndexBuffer;
 
 		static Application* s_Instance;
 	};
