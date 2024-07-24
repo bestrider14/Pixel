@@ -10,8 +10,8 @@ namespace Pixel
 	{
 		switch (Renderer::GetAPI())
 		{
-		case RendererAPI::None: PX_CORE_ASSERT(false, "RendererAPI::None is curently not supported!") return nullptr;
-		case RendererAPI::OpenGl: return new OpenGLVertexBuffer(p_Vertices, p_Size);
+			case RendererAPI::None: PX_CORE_ASSERT(false, "RendererAPI::None is curently not supported!") return nullptr;
+			case RendererAPI::OpenGl: return new OpenGLVertexBuffer(p_Vertices, p_Size);
 		}
 
 		PX_CORE_ASSERT(false, "Unknow RendererAPI!");
@@ -22,8 +22,8 @@ namespace Pixel
 	{
 		switch (Renderer::GetAPI())
 		{
-		case RendererAPI::None: PX_CORE_ASSERT(false, "RendererAPI::None is curently not supported!") return nullptr;
-		case RendererAPI::OpenGl: return new OpenGLIndexBuffer(p_Indices, p_Count);
+			case RendererAPI::None: PX_CORE_ASSERT(false, "RendererAPI::None is curently not supported!") return nullptr;
+			case RendererAPI::OpenGl: return new OpenGLIndexBuffer(p_Indices, p_Count);
 		}
 
 		PX_CORE_ASSERT(false, "Unknow RendererAPI!");
