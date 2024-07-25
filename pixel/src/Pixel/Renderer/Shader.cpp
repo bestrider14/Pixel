@@ -3,6 +3,8 @@
 
 #include <glad/glad.h>
 
+#include <glm/gtc/type_ptr.hpp>
+
 namespace Pixel
 {
 	Shader::Shader(const std::string& p_VertexSrc, const std::string& p_FragmentSrc)
@@ -124,5 +126,11 @@ namespace Pixel
 	void Shader::Unbind() const
 	{
 		glUseProgram(0);
+	}
+
+	void Shader::UploadUniformMat4(const std::string& p_Name, const glm::mat4& p_Matrix)
+	{
+		GLint location = glGetUniformLocation(m_RendererID, p_Name.c_str());
+		glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(p_Matrix));
 	}
 }// namespace Pixel

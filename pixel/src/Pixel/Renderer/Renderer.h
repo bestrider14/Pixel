@@ -1,20 +1,28 @@
 #pragma once
 
+#include "RenderCommand.h"
+#include "OrthographicCamera.h"
+#include "Pixel/Renderer/Shader.h"
+
 namespace Pixel
 {
-	enum class RendererAPI
-	{
-		None = 0, OpenGl = 1
-	};
-
 	 class Renderer
 	{
 	public:
-		inline static RendererAPI GetAPI() { return s_RendererAPI; }
+		static void BeginScene(OrthographicCamera& p_Camera);
+		static void EndScene();
+
+		static void Submit(const std::shared_ptr<Shader>& p_Shader, const std::shared_ptr<VertexArray>& p_VertexArray);
+
+		inline static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
 	private:
-		 static RendererAPI s_RendererAPI;
+		struct SceneData
+		{
+			glm::mat4 ViewProjectionMatrix;
+		};
+
+		static SceneData* m_SceneData;
 	};
-	
 }
 
 

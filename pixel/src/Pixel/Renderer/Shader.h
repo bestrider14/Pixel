@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <glm/glm.hpp>
 
 namespace Pixel
 {
@@ -13,6 +14,7 @@ namespace Pixel
 		void Bind() const;
 		void Unbind() const;
 
+		void UploadUniformMat4(const std::string& p_Name, const glm::mat4& p_Matrix);
 	private:
 		uint32_t m_RendererID;
 	};
