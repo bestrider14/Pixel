@@ -5,6 +5,8 @@
 #include "Pixel/Layer.h"
 #include "Pixel/Log.h"
 
+#include "Pixel/Core/Timestep.h"
+
 #include "Pixel/Input.h"
 #include "Pixel/KeyCode.h"
 #include "Pixel/MouseButtonCode.h"

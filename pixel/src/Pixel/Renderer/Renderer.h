@@ -12,7 +12,7 @@ namespace Pixel
 		static void BeginScene(OrthographicCamera& p_Camera);
 		static void EndScene();
 
-		static void Submit(const std::shared_ptr<Shader>& p_Shader, const std::shared_ptr<VertexArray>& p_VertexArray);
+		static void Submit(const std::shared_ptr<Shader>& p_Shader, const std::shared_ptr<VertexArray>& p_VertexArray, const glm::mat4& p_Transform = glm::mat4(1.0f));
 
 		inline static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
 	private:

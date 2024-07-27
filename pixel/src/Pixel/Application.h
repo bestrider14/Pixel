@@ -5,14 +5,9 @@
 #include "Pixel/LayerStack.h"
 #include "Pixel/Events/Event.h"
 #include "Pixel/Events/ApplicationEvent.h"
+#include "Pixel/Core/Timestep.h"
 
 #include "Pixel/ImGui/ImGuiLayer.h"
-
-#include "Pixel/Renderer/Shader.h"
-#include "Pixel/Renderer/Buffer.h"
-#include "Pixel/Renderer/VertexArray.h"
-
-#include "Pixel/Renderer/OrthographicCamera.h"
 
 namespace Pixel 
 {
@@ -40,6 +35,7 @@ namespace Pixel
 		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
 		LayerStack m_LayerStack;
+		float m_LastFrameTime = 0.0f;
 
 		static Application* s_Instance;
 	};
