@@ -12,6 +12,7 @@ namespace Pixel
 		virtual void Bind() const = 0;
 		virtual void Unbind() const = 0;
 	
+		static Shader* Create(const std::string& p_Filepath);
 		static Shader* Create(const std::string& p_VertexSrc, const std::string& p_FragmentSrc);
 	};
 }// namespace Pixel

@@ -7,10 +7,15 @@ namespace Pixel
 	class RenderCommand
 	{
 	public:
+		inline static void Init()
+		{
+			s_RendererAPI->Init();
+		}
+
 		inline static void SetClearColor(const glm::vec4& p_Color) { s_RendererAPI->SetClearColor(p_Color); }
 		inline static void Clear() { s_RendererAPI->Clear(); }
 
-		inline static void DrawIndexed(const std::shared_ptr<VertexArray>& p_VertexArray)
+		inline static void DrawIndexed(const Ref<VertexArray>& p_VertexArray)
 		{
 			s_RendererAPI->DrawIndexed(p_VertexArray);
 		}

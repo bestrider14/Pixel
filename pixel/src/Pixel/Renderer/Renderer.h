@@ -9,10 +9,12 @@ namespace Pixel
 	 class Renderer
 	{
 	public:
+		static void Init();
+
 		static void BeginScene(OrthographicCamera& p_Camera);
 		static void EndScene();
 
-		static void Submit(const std::shared_ptr<Shader>& p_Shader, const std::shared_ptr<VertexArray>& p_VertexArray, const glm::mat4& p_Transform = glm::mat4(1.0f));
+		static void Submit(const Ref<Shader>& p_Shader, const Ref<VertexArray>& p_VertexArray, const glm::mat4& p_Transform = glm::mat4(1.0f));
 
 		inline static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
 	private:

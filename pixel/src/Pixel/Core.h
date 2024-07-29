@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 #ifdef PX_DEBUG
 	#define PX_ENABLE_ASSERTS
 #endif // PX_DEBUG
@@ -17,3 +19,13 @@
 #define BIT(x) (1 << x)
 
 #define PX_BIND_EVENT_FN(fn) std::bind(&fn, this, std::placeholders::_1)
+
+namespace Pixel
+{
+	template<typename T>
+	using Scope = std::unique_ptr<T>;
+
+	template<typename T>
+	using Ref = std::shared_ptr<T>;
+
+}// namespace Pixel

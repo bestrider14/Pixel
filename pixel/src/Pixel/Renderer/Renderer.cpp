@@ -7,6 +7,11 @@ namespace Pixel
 {
 	Renderer::SceneData* Renderer::m_SceneData = new Renderer::SceneData;
 
+	void Renderer::Init()
+	{
+		RenderCommand::Init();
+	}
+
 	void Renderer::BeginScene(OrthographicCamera& p_Camera)
 	{
 		m_SceneData->ViewProjectionMatrix = p_Camera.GetViewProjectionMatrix();
@@ -16,7 +21,7 @@ namespace Pixel
 	{
 	}
 
-	void Renderer::Submit(const std::shared_ptr<Shader>& p_Shader, const std::shared_ptr<VertexArray>& p_VertexArray, const glm::mat4& p_Transform)
+	void Renderer::Submit(const Ref<Shader>& p_Shader, const Ref<VertexArray>& p_VertexArray, const glm::mat4& p_Transform)
 	{
 		p_Shader->Bind();
 		std::dynamic_pointer_cast<OpenGLShader>(p_Shader)->UploadUniformMat4("u_ViewProjection", m_SceneData->ViewProjectionMatrix);

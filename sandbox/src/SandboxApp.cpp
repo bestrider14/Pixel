@@ -22,7 +22,7 @@ public:
 			 0.0f,  0.5f, 0.0f, 0.6f, 0.0f, 0.9f, 1.0f
 		};
 
-		std::shared_ptr<Pixel::VertexBuffer> vertexBuffer;
+		Pixel::Ref<Pixel::VertexBuffer> vertexBuffer;
 		vertexBuffer.reset(Pixel::VertexBuffer::Create(vertices, sizeof(vertices)));
 
 		Pixel::BufferLayout layout = {
@@ -34,30 +34,31 @@ public:
 		m_VertexArray->AddVertexBuffer(vertexBuffer);
 
 		uint32_t indices[3] = { 0, 1, 2 };
-		std::shared_ptr<Pixel::IndexBuffer> indexBuffer;
+		Pixel::Ref<Pixel::IndexBuffer> indexBuffer;
 		indexBuffer.reset(Pixel::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
 		m_VertexArray->SetIndexBuffer(indexBuffer);
 
 		m_SquareVA.reset(Pixel::VertexArray::Create());
 
-		float SqVertices[3 * 4] = {
-			-0.5f, -0.5f, 0.0f,
-			 0.5f, -0.5f, 0.0f,
-			 0.5f,  0.5f, 0.0f,
-			-0.5f,  0.5f, 0.0f
+		float SqVertices[5 * 4] = {
+			-0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
+			 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
+			 0.5f,  0.5f, 0.0f, 1.0f, 1.0f,
+			-0.5f,  0.5f, 0.0f, 0.0f, 1.0f
 		};
 
-		std::shared_ptr<Pixel::VertexBuffer> squareVB;
+		Pixel::Ref<Pixel::VertexBuffer> squareVB;
 		squareVB.reset(Pixel::VertexBuffer::Create(SqVertices, sizeof(SqVertices)));
 		Pixel::BufferLayout layout2 = {
-			{ Pixel::ShaderDataType::Float3, "a_Position" }
+			{ Pixel::ShaderDataType::Float3, "a_Position" },
+			{ Pixel::ShaderDataType::Float2, "a_TexCoord" }
 		};
 
 		squareVB->SetLayout(layout2);
 		m_SquareVA->AddVertexBuffer(squareVB);
 
 		uint32_t SqIndices[6] = { 0, 1, 2, 2, 3, 0 };
-		std::shared_ptr<Pixel::IndexBuffer> SquareIB;
+		Pixel::Ref<Pixel::IndexBuffer> SquareIB;
 		SquareIB.reset(Pixel::IndexBuffer::Create(SqIndices, sizeof(SqIndices) / sizeof(uint32_t)));
 		m_SquareVA->SetIndexBuffer(SquareIB);
 
@@ -130,6 +131,14 @@ public:
 		)";
 
 		m_FlatColorShader.reset(Pixel::Shader::Create(flatColorVertexSrc, flatColorShaderFragmentSrc));
+
+		m_TextureShader.reset(Pixel::Shader::Create("assets/shaders/Texture.glsl"));
+
+		m_Texture = Pixel::Texture2D::Create("assets/textures/Checkerboard.png");
+		m_ChernoLogoTexture = Pixel::Texture2D::Create("assets/textures/ChernoLogo.png");
+
+		std::dynamic_pointer_cast<Pixel::OpenGLShader>(m_TextureShader)->Bind();
+		std::dynamic_pointer_cast<Pixel::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);
 	}
 
 	void OnUpdate(Pixel::Timestep p_Timestep) override
@@ -176,7 +185,15 @@ public:
 			}
 		}
 
-		Pixel::Renderer::Submit(m_Shader, m_VertexArray);
+		m_Texture->Bind();
+		Pixel::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+
+		m_ChernoLogoTexture->Bind();
+		Pixel::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+
+
+		// Triangle
+		// Pixel::Renderer::Submit(m_Shader, m_VertexArray);
 
 		Pixel::Renderer::EndScene();
 	}
@@ -193,15 +210,18 @@ public:
 	}
 
 private:
-	std::shared_ptr<Pixel::Shader> m_Shader;
-	std::shared_ptr<Pixel::VertexArray> m_VertexArray;
+	Pixel::Ref<Pixel::Shader> m_Shader;
+	Pixel::Ref<Pixel::VertexArray> m_VertexArray;
 
-	std::shared_ptr<Pixel::Shader> m_FlatColorShader;
-	std::shared_ptr<Pixel::VertexArray> m_SquareVA;
+	Pixel::Ref<Pixel::Shader> m_FlatColorShader, m_TextureShader;
+	Pixel::Ref<Pixel::VertexArray> m_SquareVA;
+
+	Pixel::Ref<Pixel::Texture2D> m_Texture, m_ChernoLogoTexture;
 
 	Pixel::OrthographicCamera m_Camera;
 	glm::vec3 m_CameraPosition;
 	float m_CameraMoveSpeed = 5.00f;
+
 	float m_CameraRotation = 0.0f;
 	float m_CameraRotationSpeed = 90.0f;
 

@@ -15,10 +15,11 @@ namespace Pixel
 		};
 
 	public:
+		virtual void Init() = 0;
 		virtual void SetClearColor(const glm::vec4& p_Color) = 0;
 		virtual void Clear() = 0;
 
-		virtual void DrawIndexed(const std::shared_ptr<VertexArray>& p_VertexArray) = 0;
+		virtual void DrawIndexed(const Ref<VertexArray>& p_VertexArray) = 0;
 
 		inline static API GetAPI() { return s_API; }
 	private:

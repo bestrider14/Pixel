@@ -46,7 +46,7 @@ namespace Pixel
 		glBindVertexArray(0);
 	}
 
-	void OpenGLVertexArray::AddVertexBuffer(const std::shared_ptr<VertexBuffer>& p_VertexBuffer)
+	void OpenGLVertexArray::AddVertexBuffer(const Ref<VertexBuffer>& p_VertexBuffer)
 	{
 		PX_CORE_ASSERT(p_VertexBuffer->GetLayout().GetElements().size(), "Vertex Buffer has no layout");
 
@@ -66,7 +66,7 @@ namespace Pixel
 		m_VertexBuffers.push_back(p_VertexBuffer);
 	}
 
-	void OpenGLVertexArray::SetIndexBuffer(const std::shared_ptr<IndexBuffer>& p_IndexBuffer)
+	void OpenGLVertexArray::SetIndexBuffer(const Ref<IndexBuffer>& p_IndexBuffer)
 	{
 		glBindVertexArray(m_RendererId);
 		p_IndexBuffer->Bind();

@@ -3,11 +3,15 @@
 #include "Pixel/Renderer/Shader.h"
 #include <glm/glm.hpp>
 
+// TODO: REMOVE!
+typedef unsigned int GLenum;
+
 namespace Pixel
 {
 	class OpenGLShader : public Shader
 	{
 	public:
+		OpenGLShader(const std::string& p_Filepath);
 		OpenGLShader(const std::string& p_VertexSrc, const std::string& p_FragmentSrc);
 		virtual ~OpenGLShader();
 
@@ -23,7 +27,12 @@ namespace Pixel
 
 		void UploadUniformMat3(const std::string& p_Name, const glm::mat3& p_Matrix) const;
 		void UploadUniformMat4(const std::string& p_Name, const glm::mat4& p_Matrix) const;
+
 	private:
-		uint32_t m_RendererID;
+		std::string ReadFile(const std::string& p_Filepath);
+		std::unordered_map<GLenum, std::string> PreProcess(const std::string& p_Source);
+		void Compile(const std::unordered_map<GLenum, std::string>& p_ShaderSources);
+
+		uint32_t m_RendererID = 0;
 	};
 }// namespace Pixel#pragma once
