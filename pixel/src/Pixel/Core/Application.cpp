@@ -1,7 +1,7 @@
 #include "pxpch.h"
 #include "Application.h"
 
-#include "Pixel/Log.h"
+#include "Pixel/Core/Log.h"
 
 #include "Pixel/Renderer/Renderer.h"
 
@@ -46,16 +46,17 @@ namespace Pixel
 		p_Overlay->OnAttach();
 	}
 
-	void Application::OnEvent(Event& p_E)
+	void Application::OnEvent(Event& p_Event)
 	{
-		EventDispatcher dispatcher(p_E);
+		EventDispatcher dispatcher(p_Event);
 
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
+		dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(OnWindowResize));
 		
 		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin(); )
 		{
-			(*--it)->OnEvent(p_E);
-			if (p_E.Handled)
+			(*--it)->OnEvent(p_Event);
+			if (p_Event.Handled)
 				break;
 		}
 	}
@@ -68,8 +69,11 @@ namespace Pixel
 			Timestep timestep = time - m_LastFrameTime;
 			m_LastFrameTime = time;
 			
-			for (Layer* layer : m_LayerStack)
-				layer->OnUpdate(timestep);
+			if (!m_Minimized)
+			{
+				for (Layer* layer : m_LayerStack)
+					layer->OnUpdate(timestep);
+			}
 
 			m_ImGuiLayer->Begin();
 			for (Layer* layer : m_LayerStack)
@@ -80,10 +84,24 @@ namespace Pixel
 		}
 	}
 
-	bool Application::OnWindowClose(WindowCloseEvent& p_E)
+	bool Application::OnWindowClose(WindowCloseEvent& p_Event)
 	{
 		m_Running = false;
 		return true;
+	}
+
+	bool Application::OnWindowResize(WindowResizeEvent& p_Event)
+	{
+		if (p_Event.GetWidth() == 0 || p_Event.GetHeight() == 0)
+		{
+			m_Minimized = true;
+			return false;
+		}
+		
+		m_Minimized = false;
+		Renderer::OnWindowResize(p_Event.GetWidth(), p_Event.GetHeight());
+
+		return false;
 	}
 
 }//namespace Pixel

@@ -6,8 +6,14 @@
 namespace Pixel
 {
 	OrthographicCamera::OrthographicCamera(float p_Left, float p_Right, float p_Bottom, float p_Top)
-		: m_ProjectionMatrix(glm::ortho(p_Left, p_Right, -1.0f, 1.0f)), m_ViewMatrix(1.0f)
+		: m_ProjectionMatrix(glm::ortho(p_Left, p_Right, p_Bottom, p_Top, -1.0f, 1.0f)), m_ViewMatrix(1.0f)
 	{
+		m_ViewProjectionMatrix = m_ProjectionMatrix * m_ViewMatrix;
+	}
+
+	void OrthographicCamera::SetProjection(float p_Left, float p_Right, float p_Bottom, float p_Top)
+	{
+		m_ProjectionMatrix = glm::ortho(p_Left, p_Right, p_Bottom, p_Top, -1.0f, 1.0f);
 		m_ViewProjectionMatrix = m_ProjectionMatrix * m_ViewMatrix;
 	}
 

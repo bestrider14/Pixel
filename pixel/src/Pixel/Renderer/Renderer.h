@@ -10,6 +10,7 @@ namespace Pixel
 	{
 	public:
 		static void Init();
+		static void OnWindowResize(uint32_t p_Width, uint32_t p_Height);
 
 		static void BeginScene(OrthographicCamera& p_Camera);
 		static void EndScene();

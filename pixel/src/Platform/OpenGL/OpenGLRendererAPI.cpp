@@ -11,6 +11,11 @@ namespace Pixel
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	}
 
+	void OpenGLRendererAPI::SetViewPort(uint32_t p_X, uint32_t p_Y, uint32_t p_Widht, uint32_t p_height)
+	{
+		glViewport(p_X, p_Y, p_Widht, p_height);
+	}
+
 	void OpenGLRendererAPI::SetClearColor(const glm::vec4& p_Color)
 	{
 		glClearColor(p_Color.r, p_Color.g, p_Color.b, p_Color.a);

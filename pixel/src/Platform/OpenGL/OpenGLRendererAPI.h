@@ -8,6 +8,8 @@ namespace Pixel
 	{
 	public:
 		virtual void Init() override;
+		virtual void SetViewPort(uint32_t p_X, uint32_t p_Y, uint32_t p_Widht, uint32_t p_height) override;
+
 		virtual void SetClearColor(const glm::vec4& p_Color) override;
 		virtual void Clear() override;
 

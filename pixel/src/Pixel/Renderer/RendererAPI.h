@@ -16,6 +16,7 @@ namespace Pixel
 
 	public:
 		virtual void Init() = 0;
+		virtual void SetViewPort(uint32_t p_X, uint32_t p_Y, uint32_t p_Widht, uint32_t p_height) = 0;
 		virtual void SetClearColor(const glm::vec4& p_Color) = 0;
 		virtual void Clear() = 0;
 

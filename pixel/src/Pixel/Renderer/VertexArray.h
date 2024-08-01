@@ -18,7 +18,7 @@ namespace Pixel
 		virtual const std::vector<Ref<VertexBuffer>>& getVertexBuffers() const = 0;
 		virtual const Ref<IndexBuffer>& getIndexBuffers() const = 0;
 
-		static VertexArray* Create();
+		static Ref<VertexArray> Create();
 	};
 }// namespace Pixel
 

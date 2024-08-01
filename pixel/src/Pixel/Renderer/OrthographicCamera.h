@@ -8,6 +8,7 @@ namespace Pixel
 	{
 	public:
 		OrthographicCamera(float p_Left, float p_Right, float p_Bottom, float p_Top);
+		void SetProjection(float p_Left, float p_Right, float p_Bottom, float p_Top);
 
 		const inline glm::vec3 GetPosition() const { return m_Position; }
 		inline void SetPosition(const glm::vec3& p_Postion) { m_Position = p_Postion; RecalculateViewMatrix(); }

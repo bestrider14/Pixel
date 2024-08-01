@@ -2,6 +2,7 @@
 #include "Renderer.h"
 
 #include "Platform/OpenGL/OpenGLShader.h"
+#include "Renderer2D.h"
 
 namespace Pixel
 {
@@ -10,6 +11,12 @@ namespace Pixel
 	void Renderer::Init()
 	{
 		RenderCommand::Init();
+		Renderer2D::Init();
+	}
+
+	void Renderer::OnWindowResize(uint32_t p_Width, uint32_t p_Height)
+	{
+		RenderCommand::SetViewPort(0, 0, p_Width, p_Height);
 	}
 
 	void Renderer::BeginScene(OrthographicCamera& p_Camera)

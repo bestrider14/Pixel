@@ -2,7 +2,7 @@
 
 #include "Core.h"
 #include "Window.h"
-#include "Pixel/LayerStack.h"
+#include "Pixel/Core/LayerStack.h"
 #include "Pixel/Events/Event.h"
 #include "Pixel/Events/ApplicationEvent.h"
 #include "Pixel/Core/Timestep.h"
@@ -19,7 +19,7 @@ namespace Pixel
 
 		void Run();
 
-		void OnEvent(Event& p_E);
+		void OnEvent(Event& p_Event);
 
 		void PushLayer(Layer* p_Layer);
 		void PushOverlay(Layer* p_Overlay);
@@ -29,11 +29,13 @@ namespace Pixel
 		static inline Application& Get() { return *s_Instance; }
 
 	private:
-		bool OnWindowClose(WindowCloseEvent& p_E);
+		bool OnWindowClose(WindowCloseEvent& p_Event);
+		bool OnWindowResize(WindowResizeEvent& p_Event);
 
 		std::unique_ptr<Window> m_Window;
 		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
+		bool m_Minimized = false;
 		LayerStack m_LayerStack;
 		float m_LastFrameTime = 0.0f;
 
