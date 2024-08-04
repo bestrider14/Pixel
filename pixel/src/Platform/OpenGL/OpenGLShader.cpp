@@ -19,14 +19,26 @@ namespace Pixel
 	}
 	
 	OpenGLShader::OpenGLShader(const std::string& p_Filepath)
-	{
+	{		
+		PX_PROFILE_FUNCTION();
+		
 		std::string source = ReadFile(p_Filepath);
 		auto shaderSource = PreProcess(source);
 		Compile(shaderSource);
+
+		// assets/shaders/Texture.glsl
+		auto lastSlash = p_Filepath.find_last_of("/\\");
+		lastSlash = lastSlash == std::string::npos ? 0 : lastSlash + 1;
+		auto lastDot = p_Filepath.rfind('.');
+		auto count = lastDot == std::string::npos ? p_Filepath.size() - lastSlash : lastDot - lastSlash;
+		m_Name = p_Filepath.substr(lastSlash, count);
 	}
 
-	OpenGLShader::OpenGLShader(const std::string& p_VertexSrc, const std::string& p_FragmentSrc)
+	OpenGLShader::OpenGLShader(const std::string& p_Name, const std::string& p_VertexSrc, const std::string& p_FragmentSrc)
+		:m_Name(p_Name)
 	{
+		PX_PROFILE_FUNCTION();
+		
 		std::unordered_map<GLenum, std::string> sources;
 		sources[GL_VERTEX_SHADER] = p_VertexSrc;
 		sources[GL_FRAGMENT_SHADER] = p_FragmentSrc;
@@ -35,17 +47,58 @@ namespace Pixel
 
 	OpenGLShader::~OpenGLShader()
 	{
+		PX_PROFILE_FUNCTION();
+		
 		glDeleteProgram(m_RendererID);
 	}
 
 	void OpenGLShader::Bind() const
 	{
+		PX_PROFILE_FUNCTION();
+
 		glUseProgram(m_RendererID);
 	}
 
 	void OpenGLShader::Unbind() const
 	{
+		PX_PROFILE_FUNCTION();
+
 		glUseProgram(0);
+	}
+
+	void OpenGLShader::SetInt(const std::string& p_Name, int p_Value)
+	{
+		PX_PROFILE_FUNCTION();
+
+		UploadUniformInt(p_Name, p_Value);
+	}
+
+	void OpenGLShader::SetFloat(const std::string& p_Name, float p_Value)
+	{
+		PX_PROFILE_FUNCTION();
+
+		UploadUniformFloat(p_Name, p_Value);
+	}
+
+	void OpenGLShader::SetFloat3(const std::string& p_Name, const glm::vec3& p_Value)
+	{
+		PX_PROFILE_FUNCTION();
+
+		UploadUniformFloat3(p_Name, p_Value);
+	}
+
+	void OpenGLShader::SetFloat4(const std::string& p_Name, const glm::vec4& p_Value)
+	{
+		PX_PROFILE_FUNCTION();
+
+		UploadUniformFloat4(p_Name, p_Value);
+	}
+
+	void OpenGLShader::SetMat4(const std::string& p_Name, const glm::mat4& p_Value)
+	{
+		PX_PROFILE_FUNCTION();
+
+		UploadUniformMat4(p_Name, p_Value);
 	}
 
 	void OpenGLShader::UploadUniformInt(const std::string& p_Name, int p_Values) const
@@ -92,8 +145,10 @@ namespace Pixel
 
 	std::string OpenGLShader::ReadFile(const std::string& p_Filepath)
 	{
+		PX_PROFILE_FUNCTION();
+		
 		std::string result;
-		std::ifstream in(p_Filepath, std::ios::in, std::ios::binary);
+		std::ifstream in(p_Filepath, std::ios::in | std::ios::binary);
 
 		if (in)
 		{
@@ -113,6 +168,8 @@ namespace Pixel
 
 	std::unordered_map<GLenum, std::string> OpenGLShader::PreProcess(const std::string& p_Source)
 	{
+		PX_PROFILE_FUNCTION();
+		
 		std::unordered_map<GLenum, std::string> shaderSources;
 
 		const char* typeToken = "#type";
@@ -137,8 +194,13 @@ namespace Pixel
 
 	void OpenGLShader::Compile(const std::unordered_map<GLenum, std::string>& p_ShaderSources)
 	{
+		PX_PROFILE_FUNCTION();
+		
 		GLuint program = glCreateProgram();
-		std::vector<GLenum> glShaderIDs(p_ShaderSources.size());
+		PX_CORE_ASSERT(p_ShaderSources.size() <= 2, "We only support 2 shaders for now");
+		std::array<GLenum, 2> glShaderIDs;
+		int glShaderIDIndex = 0;
+
 
 		for (auto& kv : p_ShaderSources)
 		{
@@ -170,7 +232,7 @@ namespace Pixel
 			}
 
 			glAttachShader(program, shader);
-			glShaderIDs.push_back(shader);
+			glShaderIDs[glShaderIDIndex++] = shader;
 		}
 
 		glLinkProgram(program);

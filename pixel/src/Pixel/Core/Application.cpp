@@ -17,6 +17,8 @@ namespace Pixel
 
 	Application::Application()
 	{
+		PX_PROFILE_FUNCTION();
+
 		PX_CORE_ASSERT(!s_Instance, "Application already exists!");
 		s_Instance = this;
 		
@@ -31,23 +33,31 @@ namespace Pixel
 
 	Application::~Application()
 	{
+		PX_PROFILE_FUNCTION();
 
+		Renderer::Shutdown();
 	}
 
 	void Application::PushLayer(Layer* p_Layer)
 	{
+		PX_PROFILE_FUNCTION();
+
 		m_LayerStack.PushLayer(p_Layer);
 		p_Layer->OnAttach();
 	}
 
 	void Application::PushOverlay(Layer* p_Overlay)
 	{
+		PX_PROFILE_FUNCTION();
+
 		m_LayerStack.PushOverlay(p_Overlay);
 		p_Overlay->OnAttach();
 	}
 
 	void Application::OnEvent(Event& p_Event)
 	{
+		PX_PROFILE_FUNCTION();
+
 		EventDispatcher dispatcher(p_Event);
 
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
@@ -63,22 +73,34 @@ namespace Pixel
 
 	void Application::Run()
 	{
+		PX_PROFILE_FUNCTION();
+
 		while (m_Running)
 		{
-			float time = (float)glfwGetTime(); // Platform::GetTime
+			PX_PROFILE_SCOPE("RunLoop");
+
+			float time = (float)glfwGetTime();
 			Timestep timestep = time - m_LastFrameTime;
 			m_LastFrameTime = time;
 			
 			if (!m_Minimized)
 			{
-				for (Layer* layer : m_LayerStack)
-					layer->OnUpdate(timestep);
-			}
+				{
+					PX_PROFILE_SCOPE("LayerStack OnUpdate");
 
-			m_ImGuiLayer->Begin();
-			for (Layer* layer : m_LayerStack)
-				layer->OnImGuiRender();
-			m_ImGuiLayer->End();
+					for (Layer* layer : m_LayerStack)
+						layer->OnUpdate(timestep);
+				}
+
+				m_ImGuiLayer->Begin();
+				{
+					PX_PROFILE_SCOPE("LayerStack OnImGuiRender");
+
+					for (Layer* layer : m_LayerStack)
+						layer->OnImGuiRender();
+				}
+				m_ImGuiLayer->End();
+			}
 
 			m_Window->OnUpdate();
 		}
@@ -92,6 +114,8 @@ namespace Pixel
 
 	bool Application::OnWindowResize(WindowResizeEvent& p_Event)
 	{
+		PX_PROFILE_FUNCTION();
+
 		if (p_Event.GetWidth() == 0 || p_Event.GetHeight() == 0)
 		{
 			m_Minimized = true;

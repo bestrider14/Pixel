@@ -30,6 +30,7 @@ namespace Pixel
 
 		if (it != m_Layers.end())
 		{
+			p_Layer->OnDetach();
 			m_Layers.erase(it);
 			m_LayerInsertIndex--;
 		}
@@ -40,7 +41,10 @@ namespace Pixel
 		auto it = std::find(m_Layers.begin(), m_Layers.end(), p_Overlay);
 
 		if (it != m_Layers.end())
+		{
+			p_Overlay->OnDetach();
 			m_Layers.erase(it);
+		}
 	}
 
 }// namespace Pixel

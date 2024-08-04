@@ -98,7 +98,7 @@ public:
 			}
 		)";
 
-		m_Shader = Pixel::Shader::Create(vertexSrc, fragmentSrc);
+		m_Shader = Pixel::Shader::Create("VertexPosColor", vertexSrc, fragmentSrc);
 
 		std::string flatColorVertexSrc = R"(
 			#version 330 core
@@ -132,15 +132,15 @@ public:
 			}
 		)";
 
-		m_FlatColorShader = Pixel::Shader::Create(flatColorVertexSrc, flatColorShaderFragmentSrc);
+		m_FlatColorShader = Pixel::Shader::Create("flatColor", flatColorVertexSrc, flatColorShaderFragmentSrc);
 
-		m_TextureShader = Pixel::Shader::Create("assets/shaders/Texture.glsl");
+		auto textureShader = m_ShaderLibrary.Load("assets/shaders/Texture.glsl");
 
 		m_Texture = Pixel::Texture2D::Create("assets/textures/Checkerboard.png");
 		m_ChernoLogoTexture = Pixel::Texture2D::Create("assets/textures/ChernoLogo.png");
 
-		std::dynamic_pointer_cast<Pixel::OpenGLShader>(m_TextureShader)->Bind();
-		std::dynamic_pointer_cast<Pixel::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);
+		std::dynamic_pointer_cast<Pixel::OpenGLShader>(textureShader)->Bind();
+		std::dynamic_pointer_cast<Pixel::OpenGLShader>(textureShader)->UploadUniformInt("u_Texture", 0);
 	}
 
 	void OnUpdate(Pixel::Timestep p_Timestep) override
@@ -169,11 +169,13 @@ public:
 			}
 		}
 
+		auto textureShader = m_ShaderLibrary.Get("Texture");
+
 		m_Texture->Bind();
-		Pixel::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+		Pixel::Renderer::Submit(textureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
 		m_ChernoLogoTexture->Bind();
-		Pixel::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+		Pixel::Renderer::Submit(textureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
 
 		// Triangle
@@ -195,10 +197,11 @@ public:
 	}
 
 private:
+	Pixel::ShaderLibrary m_ShaderLibrary;
 	Pixel::Ref<Pixel::Shader> m_Shader;
 	Pixel::Ref<Pixel::VertexArray> m_VertexArray;
 
-	Pixel::Ref<Pixel::Shader> m_FlatColorShader, m_TextureShader;
+	Pixel::Ref<Pixel::Shader> m_FlatColorShader;
 	Pixel::Ref<Pixel::VertexArray> m_SquareVA;
 
 	Pixel::Ref<Pixel::Texture2D> m_Texture, m_ChernoLogoTexture;

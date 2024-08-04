@@ -10,8 +10,15 @@ namespace Pixel
 
 	void Renderer::Init()
 	{
+		PX_PROFILE_FUNCTION();
+
 		RenderCommand::Init();
 		Renderer2D::Init();
+	}
+
+	void Renderer::Shutdown()
+	{
+		Renderer2D::Shutdown();
 	}
 
 	void Renderer::OnWindowResize(uint32_t p_Width, uint32_t p_Height)

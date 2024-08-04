@@ -13,6 +13,8 @@ namespace Pixel
 	}
 	void OpenGLContext::Init()
 	{
+		PX_PROFILE_FUNCTION();
+
 		glfwMakeContextCurrent(m_WindowHandle);
 		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 		PX_CORE_ASSERT(status, "Could not initialize Glad!");
@@ -24,6 +26,8 @@ namespace Pixel
 	}
 	void OpenGLContext::SwapBuffers()
 	{
+		PX_PROFILE_FUNCTION();
+
 		glfwSwapBuffers(m_WindowHandle);
 	}
 }// namespace Pixel

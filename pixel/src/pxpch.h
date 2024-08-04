@@ -8,11 +8,13 @@
 
 #include <sstream>
 #include <string>
+#include <array>
 #include <vector>
 #include <unordered_map>
 #include <unordered_set>
 
 #include "Pixel/core/Log.h"
+#include "Pixel/Debug/Instrumentor.h"
 
 #ifdef PX_PLATFORM_WINDOWS
 	#include <Windows.h>

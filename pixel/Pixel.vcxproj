@@ -155,6 +155,7 @@
     <ClInclude Include="src\Pixel\Core\MouseButtonCode.h" />
     <ClInclude Include="src\Pixel\Core\Timestep.h" />
     <ClInclude Include="src\Pixel\Core\Window.h" />
+    <ClInclude Include="src\Pixel\Debug\Instrumentor.h" />
     <ClInclude Include="src\Pixel\Events\ApplicationEvent.h" />
     <ClInclude Include="src\Pixel\Events\Event.h" />
     <ClInclude Include="src\Pixel\Events\KeyEvent.h" />
@@ -606,6 +607,7 @@
     <ClCompile Include="src\Pixel\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\Pixel\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\Pixel\Renderer\Buffer.cpp" />
+    <ClCompile Include="src\Pixel\Renderer\GraphicsContext.cpp" />
     <ClCompile Include="src\Pixel\Renderer\OrthographicCamera.cpp" />
     <ClCompile Include="src\Pixel\Renderer\OrthographicCameraController.cpp" />
     <ClCompile Include="src\Pixel\Renderer\RenderCommand.cpp" />

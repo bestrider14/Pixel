@@ -9,48 +9,57 @@
 
 namespace Pixel
 {
-	static bool s_GLFWInitialized = false;
+	static uint8_t s_GLFWWindowCount = 0;
 
 	static void GLFWErrorCallback(int p_Error, const char* p_Description)
 	{
 		PX_CORE_ERROR("GLFW Error ({0}): {1}", p_Error, p_Description);
 	}
 
-	Window* Window::Create(const WindowProps& p_props)
+	Scope<Window> Window::Create(const WindowProps& p_props)
 	{
-		return new WindowsWindow(p_props);
+		return CreateScope<WindowsWindow>(p_props);
 	}
 
 	WindowsWindow::WindowsWindow(const WindowProps& p_props)
 	{
+		PX_PROFILE_FUNCTION();
+
 		Init(p_props);
 	}
 
 	WindowsWindow::~WindowsWindow()
 	{
+		PX_PROFILE_FUNCTION();
+		
 		Shutdown();
 	}
 
 	void WindowsWindow::Init(const WindowProps& p_props)
 	{
+		PX_PROFILE_FUNCTION();
+		
 		m_Data.Title = p_props.Title;
 		m_Data.Width = p_props.Width;
 		m_Data.Height = p_props.Height;
 		
 		PX_CORE_INFO("Creating window {0} ({1}, {2})", p_props.Title, p_props.Width, p_props.Height);
 
-		if (!s_GLFWInitialized)
+		if (s_GLFWWindowCount == 0)
 		{
-			// TODO: glfwTerminate on systeme shutdown
+			PX_PROFILE_SCOPE("glfwInit");
 			int success = glfwInit();
 			PX_CORE_ASSERT(success, "Could not initialize GLFW!");
 			glfwSetErrorCallback(GLFWErrorCallback);
-			s_GLFWInitialized = true;
 		}
 
-		m_Window = glfwCreateWindow((int)p_props.Width, (int)p_props.Height, m_Data.Title.c_str(), nullptr, nullptr);
+		{
+			PX_PROFILE_SCOPE("glfwCreateWindow");
+			m_Window = glfwCreateWindow((int)p_props.Width, (int)p_props.Height, m_Data.Title.c_str(), nullptr, nullptr);
+			++s_GLFWWindowCount;
+		}
 
-		m_Context = new OpenGLContext(m_Window);
+		m_Context = GraphicsContext::Create(m_Window);
 		m_Context->Init();
 
 		glfwSetWindowUserPointer(m_Window, &m_Data);
@@ -151,17 +160,23 @@ namespace Pixel
 
 	void WindowsWindow::Shutdown()
 	{
+		PX_PROFILE_FUNCTION();
+
 		glfwDestroyWindow(m_Window);
 	}
 
 	void WindowsWindow::OnUpdate()
 	{
+		PX_PROFILE_FUNCTION();
+
 		glfwPollEvents();
 		m_Context->SwapBuffers();
 	}
 
 	void WindowsWindow::SetVSync(bool enabled)
 	{
+		PX_PROFILE_FUNCTION();
+		
 		if (enabled)
 			glfwSwapInterval(1);
 		else

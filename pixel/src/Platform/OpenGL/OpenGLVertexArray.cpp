@@ -28,26 +28,36 @@ namespace Pixel
 
 	OpenGLVertexArray::OpenGLVertexArray()
 	{
+		PX_PROFILE_FUNCTION();
+
 		glCreateVertexArrays(1, &m_RendererId);
 	}
 
 	OpenGLVertexArray::~OpenGLVertexArray()
 	{
+		PX_PROFILE_FUNCTION();
+
 		glDeleteVertexArrays(1, &m_RendererId);
 	}
 
 	void OpenGLVertexArray::Bind() const
 	{
+		PX_PROFILE_FUNCTION();
+
 		glBindVertexArray(m_RendererId);
 	}
 
 	void OpenGLVertexArray::Unbind() const
 	{
+		PX_PROFILE_FUNCTION();
+
 		glBindVertexArray(0);
 	}
 
 	void OpenGLVertexArray::AddVertexBuffer(const Ref<VertexBuffer>& p_VertexBuffer)
 	{
+		PX_PROFILE_FUNCTION();
+
 		PX_CORE_ASSERT(p_VertexBuffer->GetLayout().GetElements().size(), "Vertex Buffer has no layout");
 
 		glBindVertexArray(m_RendererId);
@@ -68,6 +78,8 @@ namespace Pixel
 
 	void OpenGLVertexArray::SetIndexBuffer(const Ref<IndexBuffer>& p_IndexBuffer)
 	{
+		PX_PROFILE_FUNCTION();
+
 		glBindVertexArray(m_RendererId);
 		p_IndexBuffer->Bind();
 
