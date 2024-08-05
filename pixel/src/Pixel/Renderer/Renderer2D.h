@@ -13,6 +13,7 @@ namespace Pixel
 
 		static void BeginScene(const OrthographicCamera& p_Camera);
 		static void EndScene();
+		static void Flush();
 
 		// Primitive
 		static void DrawQuad(const glm::vec2& p_Position, const glm::vec2& p_Size, const glm::vec4& p_Color);

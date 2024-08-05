@@ -6,24 +6,36 @@
 
 namespace Pixel
 {
-	VertexBuffer* Pixel::VertexBuffer::Create(float* p_Vertices, uint32_t p_Size)
+	Ref<VertexBuffer> VertexBuffer::Create(uint32_t p_Size)
 	{
 		switch (Renderer::GetAPI())
 		{
 			case RendererAPI::API::None: PX_CORE_ASSERT(false, "RendererAPI::None is curently not supported!") return nullptr;
-			case RendererAPI::API::OpenGL: return new OpenGLVertexBuffer(p_Vertices, p_Size);
+			case RendererAPI::API::OpenGL: return CreateRef<OpenGLVertexBuffer>(p_Size);
 		}
 
 		PX_CORE_ASSERT(false, "Unknow RendererAPI!");
 		return nullptr;
 	}
 
-	IndexBuffer* Pixel::IndexBuffer::Create(uint32_t* p_Indices, uint32_t p_Count)
+	Ref<VertexBuffer> Pixel::VertexBuffer::Create(float* p_Vertices, uint32_t p_Size)
 	{
 		switch (Renderer::GetAPI())
 		{
 			case RendererAPI::API::None: PX_CORE_ASSERT(false, "RendererAPI::None is curently not supported!") return nullptr;
-			case RendererAPI::API::OpenGL: return new OpenGLIndexBuffer(p_Indices, p_Count);
+			case RendererAPI::API::OpenGL: return CreateRef<OpenGLVertexBuffer>(p_Vertices, p_Size);
+		}
+
+		PX_CORE_ASSERT(false, "Unknow RendererAPI!");
+		return nullptr;
+	}
+
+	Ref<IndexBuffer> Pixel::IndexBuffer::Create(uint32_t* p_Indices, uint32_t p_Size)
+	{
+		switch (Renderer::GetAPI())
+		{
+			case RendererAPI::API::None: PX_CORE_ASSERT(false, "RendererAPI::None is curently not supported!") return nullptr;
+			case RendererAPI::API::OpenGL: return CreateRef<OpenGLIndexBuffer>(p_Indices, p_Size);
 		}
 
 		PX_CORE_ASSERT(false, "Unknow RendererAPI!");

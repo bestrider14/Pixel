@@ -108,10 +108,13 @@ namespace Pixel
 		virtual void Bind() const = 0;
 		virtual void Unbind() const = 0;
 
+		virtual void SetData(const void* p_data, uint32_t p_Size) = 0;
 		virtual const BufferLayout& GetLayout() const = 0;
 		virtual void SetLayout(const BufferLayout& p_Layout) = 0;
 
-		static VertexBuffer* Create(float* p_Vertices, uint32_t p_Size);
+
+		static Ref<VertexBuffer> Create(uint32_t p_Size);
+		static Ref<VertexBuffer> Create(float* p_Vertices, uint32_t p_Size);
 	};
 
 	class IndexBuffer
@@ -124,7 +127,7 @@ namespace Pixel
 
 		virtual uint32_t GetCount() const = 0;
 
-		static IndexBuffer* Create(uint32_t* p_Indices, uint32_t p_Count);
+		static Ref<IndexBuffer> Create(uint32_t* p_Indices, uint32_t p_Count);
 	};
 
 }// Pixel

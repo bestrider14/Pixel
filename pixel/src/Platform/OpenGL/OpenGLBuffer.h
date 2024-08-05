@@ -7,11 +7,13 @@ namespace Pixel
 	class OpenGLVertexBuffer : public VertexBuffer
 	{
 	public:
+		OpenGLVertexBuffer(uint32_t p_Size);
 		OpenGLVertexBuffer(float* p_Vertices, uint32_t p_Size);
 		virtual ~OpenGLVertexBuffer();
 		
 		virtual void Bind() const override;
 		virtual void Unbind() const override;
+		virtual void SetData(const void* p_data, uint32_t p_Size) override;
 
 		virtual inline const BufferLayout& GetLayout() const override { return m_Layout; }
 		virtual inline void SetLayout(const BufferLayout& p_Layout) override { m_Layout = p_Layout; }

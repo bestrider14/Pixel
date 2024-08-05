@@ -30,9 +30,10 @@ namespace Pixel
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 
-	void OpenGLRendererAPI::DrawIndexed(const Ref<VertexArray>& p_VertexArray)
+	void OpenGLRendererAPI::DrawIndexed(const Ref<VertexArray>& p_VertexArray, uint32_t p_IndexCount)
 	{
-		glDrawElements(GL_TRIANGLES, p_VertexArray->getIndexBuffers()->GetCount(), GL_UNSIGNED_INT, nullptr);
+		uint32_t count = p_IndexCount ? p_VertexArray->getIndexBuffers()->GetCount() : p_IndexCount;
+		glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, nullptr);
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 }// namespace Pixel

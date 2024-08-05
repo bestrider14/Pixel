@@ -13,7 +13,7 @@ namespace Pixel
 		virtual void SetClearColor(const glm::vec4& p_Color) override;
 		virtual void Clear() override;
 
-		virtual void DrawIndexed(const Ref<VertexArray>& p_VertexArray) override;
+		virtual void DrawIndexed(const Ref<VertexArray>& p_VertexArray, uint32_t p_IndexCount = 0) override;
 	};
 }// namespace Pixel
 

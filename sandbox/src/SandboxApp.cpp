@@ -25,7 +25,7 @@ public:
 		};
 
 		Pixel::Ref<Pixel::VertexBuffer> vertexBuffer;
-		vertexBuffer.reset(Pixel::VertexBuffer::Create(vertices, sizeof(vertices)));
+		vertexBuffer = Pixel::VertexBuffer::Create(vertices, sizeof(vertices));
 
 		Pixel::BufferLayout layout = {
 			{ Pixel::ShaderDataType::Float3, "a_Position" },
@@ -37,7 +37,7 @@ public:
 
 		uint32_t indices[3] = { 0, 1, 2 };
 		Pixel::Ref<Pixel::IndexBuffer> indexBuffer;
-		indexBuffer.reset(Pixel::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
+		indexBuffer = Pixel::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t));
 		m_VertexArray->SetIndexBuffer(indexBuffer);
 
 		m_SquareVA = Pixel::VertexArray::Create();
@@ -50,7 +50,7 @@ public:
 		};
 
 		Pixel::Ref<Pixel::VertexBuffer> squareVB;
-		squareVB.reset(Pixel::VertexBuffer::Create(SqVertices, sizeof(SqVertices)));
+		squareVB = Pixel::VertexBuffer::Create(SqVertices, sizeof(SqVertices));
 		Pixel::BufferLayout layout2 = {
 			{ Pixel::ShaderDataType::Float3, "a_Position" },
 			{ Pixel::ShaderDataType::Float2, "a_TexCoord" }
@@ -61,7 +61,7 @@ public:
 
 		uint32_t SqIndices[6] = { 0, 1, 2, 2, 3, 0 };
 		Pixel::Ref<Pixel::IndexBuffer> SquareIB;
-		SquareIB.reset(Pixel::IndexBuffer::Create(SqIndices, sizeof(SqIndices) / sizeof(uint32_t)));
+		SquareIB = Pixel::IndexBuffer::Create(SqIndices, sizeof(SqIndices) / sizeof(uint32_t));
 		m_SquareVA->SetIndexBuffer(SquareIB);
 
 		std::string vertexSrc = R"(

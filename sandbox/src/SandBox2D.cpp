@@ -40,8 +40,9 @@ void SandBox2D::OnUpdate(Pixel::Timestep p_Timestep)
 		PX_PROFILE_SCOPE("RendererDraw::OnUpdate");
 		Pixel::Renderer2D::BeginScene(m_CameraController.GetCamera()); 
 		Pixel::Renderer2D::DrawQuad({ -1.0f, 0.0f }, { 0.8f, 0.5f }, { 0.8f, 0.2f, 0.3f, 1.0f });
-		Pixel::Renderer2D::DrawRotatedQuad({ 0.5f, -0.6f }, { 0.9f, 1.0f }, glm::radians(45.0f), { 0.2f, 0.8f, 0.45f, 1.0f });
-		Pixel::Renderer2D::DrawRotatedQuad({ 0.0f, 0.0f, -0.1f }, { 10.0f, 10.0f }, glm::radians(15.0f), m_CheckerBoardTexture, 10.0f, glm::vec4(1.0f, 0.9f, 0.9f, 1.0f));
+		Pixel::Renderer2D::DrawQuad({ 0.5f, -0.6f }, { 0.9f, 1.0f }, { 0.2f, 0.8f, 0.45f, 1.0f });
+		//Pixel::Renderer2D::DrawRotatedQuad({ 0.5f, -0.6f }, { 0.9f, 1.0f }, glm::radians(45.0f), { 0.2f, 0.8f, 0.45f, 1.0f });
+		//Pixel::Renderer2D::DrawQuad({ 0.0f, 0.0f, -0.1f }, { 10.0f, 10.0f }, m_CheckerBoardTexture, 10.0f);
 		Pixel::Renderer2D::EndScene();
 	}
 }

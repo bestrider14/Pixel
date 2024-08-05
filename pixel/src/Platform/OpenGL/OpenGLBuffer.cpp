@@ -6,6 +6,15 @@
 namespace Pixel
 {
 	// VertexBuffer
+	OpenGLVertexBuffer::OpenGLVertexBuffer(uint32_t p_Size)
+	{
+		PX_PROFILE_FUNCTION();
+
+		glCreateBuffers(1, &m_RendererID);
+		glBindBuffer(GL_ARRAY_BUFFER, m_RendererID);
+		glBufferData(GL_ARRAY_BUFFER, p_Size, nullptr, GL_DYNAMIC_DRAW);
+	}
+
 	OpenGLVertexBuffer::OpenGLVertexBuffer(float* p_Vertices, uint32_t p_Size)
 	{
 		PX_PROFILE_FUNCTION();
@@ -34,6 +43,12 @@ namespace Pixel
 		PX_PROFILE_FUNCTION();
 		
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
+	}
+
+	void OpenGLVertexBuffer::SetData(const void* p_data, uint32_t p_Size)
+	{
+		glBindBuffer(GL_ARRAY_BUFFER, m_RendererID);
+		glBufferSubData(GL_ARRAY_BUFFER, 0, p_Size, p_data);
 	}
 
 
